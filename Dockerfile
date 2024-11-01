@@ -24,6 +24,11 @@ ENV NODE_ENV=production
 # potential perf issues w/ io_uring on this version of node
 ENV UV_USE_IO_URING=0
 
+# Trying to get pdsadmin - see https://github.com/bluesky-social/pds/issues/52#issuecomment-1962011142
+RUN apk add bash curl openssl jq
+RUN curl --silent --show-error --fail --output "/usr/local/bin/pdsadmin" "https://raw.githubusercontent.com/bluesky-social/pds/main/pdsadmin.sh"
+RUN chmod +x /usr/local/bin/pdsadmin
+
 CMD ["node", "--enable-source-maps", "index.js"]
 
 LABEL org.opencontainers.image.source=https://github.com/bluesky-social/pds
